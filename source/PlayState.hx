@@ -3,6 +3,7 @@ package;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
@@ -10,6 +11,7 @@ import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 import stuff.Block;
 import stuff.Box;
+import stuff.Coin;
 import stuff.Safe;
 import stuff.Twump;
 import util.TState;
@@ -24,6 +26,7 @@ class PlayState extends TState
 	public var stuff:FlxTypedGroup<Exploder>;
 	public var elevators:FlxTypedGroup<Elevator>;
 	public var explosions:FlxGroup;
+	public var coins:FlxGroup;
 	
 	var map:FlxOgmoLoader;
 	var level:FlxTilemap;
@@ -37,6 +40,7 @@ class PlayState extends TState
 		stuff = new FlxTypedGroup();
 		elevators = new FlxTypedGroup();
 		explosions = new FlxGroup();
+		coins = new FlxGroup();
 		
 		map = new FlxOgmoLoader("assets/data/tower.oel");
 		level = map.loadTilemap("assets/images/tiles.png", 16, 16, "map");
@@ -55,6 +59,7 @@ class PlayState extends TState
 		add(elevators);
 		map.loadEntities(placeObjects, "objects");
 		add(stuff);
+		add(coins);
 		add(explosions);
 		
 		FlxG.camera.follow(theDonul, FlxCameraFollowStyle.TOPDOWN);
@@ -85,6 +90,10 @@ class PlayState extends TState
 		{
 			var s = new Safe(p);
 		}
+		else if (entityName == "coin")
+		{
+			var c = new Coin(p, FlxPoint.get());
+		}
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -94,8 +103,16 @@ class PlayState extends TState
 		FlxG.collide(elevators, theDonul);
 		FlxG.collide(level, stuff);
 		FlxG.collide(level, theDonul);
+		FlxG.collide(level, coins);
 		FlxG.collide(stuff, stuff, checkStuffOut);
 		FlxG.collide(stuff, theDonul);
+		
+		FlxG.overlap(theDonul, coins, getCoin);
+	}
+	
+	function getCoin(d:Twump, c:FlxObject):Void
+	{
+		c.kill();
 	}
 	
 	function checkStuffOut(s1:Exploder, s2:Exploder):Void
