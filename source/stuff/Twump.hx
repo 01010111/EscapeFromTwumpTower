@@ -5,7 +5,9 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 import flixel.util.FlxSpriteUtil;
+import util.Transition;
 import util.TState;
+import util.ZMath;
 
 /**
  * ...
@@ -16,6 +18,8 @@ class Twump extends Exploder
 	var pullBox:FlxObject;
 	
 	public var dolly:FlxObject;
+	
+	public var canControl:Bool = true;
 	
 	public function new(P:FlxPoint) 
 	{
@@ -41,17 +45,27 @@ class Twump extends Exploder
 		PlayState.instance.add(pullBox);
 		dolly = new FlxObject(x, y, 1, 1);
 		PlayState.instance.add(dolly);
+		health = 3;
 	}
 	
 	var dollyTarget = 0.0;
 	
 	override public function update(elapsed:Float):Void 
 	{
-		held = false;
 		pullBox.setPosition(x + 4, y + height + 2);
-		control();
+		if (health > 0 && canControl) control();
+		else if (health <= 0)
+		{
+			animation.play("hurt");
+			allowCollisions = 0x0000;
+			velocity.x = 0;
+		}
+		else 
+		{
+			velocity.x = 0;
+		}
+		
 		super.update(elapsed);
-		held = false;
 		if (hurtTimer > 0)
 		{
 			hurtTimer--;
@@ -61,12 +75,20 @@ class Twump extends Exploder
 			hurtTimer--;
 			FlxSpriteUtil.flicker(this);
 		}
+		if (y > PlayState.instance.level.height)
+		{
+			super.kill();
+			PlayState.instance.openSubState(new Transition(false, false, true));
+		}
+		
+		if (x < 0) x++;
+		if (x > FlxG.width - width) x--;
 	}
 	
 	var hurtTimer = -1;
 	var speed = 80;
 	var jumpForce = 240;
-	var holding = false;
+	public var holding = false;
 	var strength = 1;
 	
 	function control():Void
@@ -124,8 +146,17 @@ class Twump extends Exploder
 		FlxG.overlap(pullBox, PlayState.instance.stuff, pullThing);
 	}
 	
+	var sweatTimer:Int = 0;
+	
 	function pullThing(pB:FlxObject, t:Exploder):Void
 	{
+		if (sweatTimer <= 0)
+		{
+			sweatTimer = 8;
+			var s = new Sweat(ZMath.randomRange(x, x + width), ZMath.randomRange(y - 4, y));
+		}
+		else sweatTimer--;
+		
 		if (t.weight <= 0) 
 		{
 			holding = true;
@@ -165,6 +196,12 @@ class Twump extends Exploder
 			hurtTimer = 60;
 		}
 		jump();
+		velocity.x = facing == FlxObject.LEFT ? -100 : 100;
+	}
+	
+	override public function kill():Void 
+	{
+		//super.kill();
 	}
 	
 }

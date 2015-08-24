@@ -16,7 +16,7 @@
     <Width>320</Width>
     <Height>8000</Height>
   </LevelMaximumSize>
-  <Filename>D:\Projects\Games\TwumpTower\assets\data\tower.oep</Filename>
+  <Filename>D:\Projects\Games\EscapeFromTwumpTower\assets\data\tower.oep</Filename>
   <AngleMode>Radians</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>
@@ -147,6 +147,81 @@
         <Y>0</Y>
       </Origin>
       <ImageDefinition DrawMode="Image" ImagePath="coin.png" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions />
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="moe" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Image" ImagePath="moe.png" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions />
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="trumper" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Image" ImagePath="trumper.png" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions />
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="moneybag" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Image" ImagePath="moneybag.png" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions />
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="armyman" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Image" ImagePath="armyman.png" Tiled="false">
+        <RectColor A="255" R="255" G="0" B="0" />
+      </ImageDefinition>
+      <ValueDefinitions />
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="cpu" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Image" ImagePath="pc.png" Tiled="false">
         <RectColor A="255" R="255" G="0" B="0" />
       </ImageDefinition>
       <ValueDefinitions />

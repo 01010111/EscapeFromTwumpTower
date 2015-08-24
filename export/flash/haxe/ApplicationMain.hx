@@ -30,6 +30,10 @@ class ApplicationMain {
 		var types = [];
 		
 		
+		urls.push ("assets/data/armyman.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/data/block.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -38,7 +42,23 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/data/coin.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/data/elevator.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/data/moe.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/data/moneybag.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/data/pc.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -58,7 +78,31 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/data/trumper.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/armyman.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/bg.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/boy.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/bullet.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/coin.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/copter.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -70,11 +114,39 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/health.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/heart.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/missileMoe.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/numbers.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/sweat.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/tiles.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/title.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/twump.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/uiBGthing.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -154,7 +226,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "143",
+			build: "336",
 			company: "HaxeFlixel",
 			file: "TwumpTower",
 			fps: 60,

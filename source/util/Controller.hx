@@ -25,8 +25,8 @@ class Controller extends FlxObject
 	public function HAxis():Float
 	{
 		var v = 0.0;
-		if (FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A || joypad != null && joypad.getXAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) <= -deadzone) v--;
-		if (FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D || joypad != null && joypad.getXAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) >= deadzone) v++;
+		if (FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A || joypad != null && joypad.getXAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) <= -deadzone || joypad != null && joypad.pressed.DPAD_LEFT) v--;
+		if (FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D || joypad != null && joypad.getXAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) >= deadzone || joypad != null && joypad.pressed.DPAD_RIGHT) v++;
 		return v;
 	}
 	
@@ -52,7 +52,7 @@ class Controller extends FlxObject
 	
 	public function down_pressed():Bool
 	{
-		return FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S || joypad != null && joypad.getYAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) > deadzone;
+		return FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S || joypad != null && joypad.getYAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) > deadzone || joypad != null && joypad.pressed.DPAD_DOWN;
 	}
 	
 }

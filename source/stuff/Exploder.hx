@@ -17,14 +17,18 @@ class Exploder extends FlxSprite
 	public var constructor:Bool = false;
 	public var destructable:Bool = false;
 	var hasSpawned:Bool = false;
+	var explode = true;
+	var trump = false;
 	
 	public function new(P:FlxPoint, TWUMP:Bool = false) 
 	{
 		super(P.x, P.y);
 		TWUMP ? PlayState.instance.add(this) : PlayState.instance.stuff.add(this);
+		trump = TWUMP;
 	}
 	
 	var yOff = 0.0;
+	var heldSwitch = false;
 	
 	override public function update(elapsed:Float):Void 
 	{
@@ -40,7 +44,7 @@ class Exploder extends FlxSprite
 				}
 				else if (destructable)
 				{
-					kill();
+					if (heldSwitch) kill();
 				}
 				weight = weightInit;
 			}
@@ -50,18 +54,22 @@ class Exploder extends FlxSprite
 				setPosition(PlayState.instance.theDonul.getMidpoint().x - width * 0.5, PlayState.instance.theDonul.y - yOff);
 				allowCollisions = FlxObject.NONE;
 				acceleration.y = 0;
+				heldSwitch = true;
 			}
 			else
 			{
 				yOff = 0;
-				if (isTouching(FlxObject.FLOOR)) drag.x = 800;
+				if (isTouching(FlxObject.FLOOR) && !walker) drag.x = 800;
 				else drag.x = 0;
-				allowCollisions = FlxObject.ANY;
-				acceleration.y = 800;
+				if (!trump) allowCollisions = FlxObject.ANY;
+				if (useGravity) acceleration.y = 800;
 			}
 			super.update(elapsed);
 		}
 	}
+	
+	var useGravity:Bool = true;
+	var walker = false;
 	
 	function setWeight(v:Float)
 	{
@@ -70,9 +78,11 @@ class Exploder extends FlxSprite
 	
 	override public function kill():Void 
 	{
-		var s = 0.0;
-		height > width ? s = height : s = width;
-		var e = new Explosion(getMidpoint(), s / 16 + Math.random() + 1);
+		if (explode)
+		{
+			var s = height > width ? height : width;
+			var e = new Explosion(getMidpoint(), s / 16 + Math.random() + 1);
+		}
 		super.kill();
 	}
 	
