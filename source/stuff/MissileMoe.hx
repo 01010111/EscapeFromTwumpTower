@@ -3,6 +3,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
+import flixel.util.FlxPath;
 import util.ZMath;
 
 /**
@@ -12,7 +13,7 @@ import util.ZMath;
 class MissileMoe extends Exploder
 {
 	var nose:FlxObject;
-	public function new(P:FlxPoint) 
+	public function new(P:FlxPoint, W:FlxPoint) 
 	{
 		super(P);
 		loadGraphic("assets/images/missileMoe.png");
@@ -27,14 +28,27 @@ class MissileMoe extends Exploder
 		acceleration.y = 0;
 		useGravity = false;
 		constructor = true;
+		findPath(W);
+	}
+	
+	var path:FlxPath;
+	
+	function findPath(W:FlxPoint):Void
+	{
+		path = new FlxPath().start(this, [getMidpoint(), FlxPoint.get(W.x + 8, W.y + 8)], 40, FlxPath.YOYO);
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
+		if (velocity.x > 0) {
+			facing = FlxObject.RIGHT;
+		} else if (velocity.x < 0) {
+			facing = FlxObject.LEFT;
+		}
+		
 		nose.setPosition(x - 2, y + 6);
 		if (!heldSwitch)
 		{
-			if (FlxG.collide(nose, PlayState.instance.level)) turnAround();
 			if (FlxG.overlap(nose, PlayState.instance.theDonul))
 			{
 				for (i in 0...3) PlayState.instance.explosions.add(new Explosion(FlxPoint.get(getMidpoint().x + ZMath.randomRange( -10, 10), getMidpoint().y + ZMath.randomRange( -10, 10)), Math.random() + 1));
@@ -44,8 +58,13 @@ class MissileMoe extends Exploder
 		}
 		else 
 		{
+			if (path.active)
+			{
+				path.cancel();
+			}
 			useGravity = true;
 			immovable = false;
+			acceleration.y = 800;
 		}
 		
 		if (useGravity && justTouched(FlxObject.FLOOR)) kill();

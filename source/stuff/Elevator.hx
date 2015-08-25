@@ -48,6 +48,7 @@ class Elevator extends FlxSprite
 		top.y = y - 47;
 		super.update(elapsed);
 		FlxG.collide(top, PlayState.instance.theDonul);
+		FlxG.collide(top, PlayState.instance.stuff);
 	}
 	
 }

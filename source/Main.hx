@@ -65,6 +65,6 @@ class Main extends Sprite
 		}
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
-		addChild(new FPS(580, 10, 0x808080));
+		//addChild(new FPS(580, 10, 0x808080));
 	}
 }

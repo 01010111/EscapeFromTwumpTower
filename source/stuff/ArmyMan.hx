@@ -66,13 +66,15 @@ class ArmyMan extends Exploder
 	{
 		if (isTouching(FlxObject.FLOOR) && timer <= 0)
 		{
+			FlxG.sound.play("assets/sounds/jump.mp3", 0.2);
 			velocity.y = -200;
-			timer = 60;
+			timer = 100;
 		}
 	}
 	
 	function shoot():Void
 	{
+		FlxG.sound.play("assets/sounds/shooot.mp3", 0.5);
 		var b = facing == FlxObject.LEFT? new Bullet(FlxPoint.get(x - 10, y + 8), -60) : new Bullet(FlxPoint.get(x + width + 10, y + 8), 60);
 	}
 	

@@ -5,6 +5,7 @@ import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
+import flixel.FlxG;
 
 /**
  * ...

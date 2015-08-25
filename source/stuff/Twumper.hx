@@ -24,7 +24,6 @@ class Twumper extends Exploder
 		PlayState.instance.stuff.add(this);
 		walker = true;
 		drag.set();
-		FlxG.watch.add(drag, "x", "DX");
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		immovable = true;

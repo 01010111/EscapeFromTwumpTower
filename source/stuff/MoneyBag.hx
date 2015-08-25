@@ -3,6 +3,7 @@ import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
 import openfl.display.BlendMode;
 import util.ZMath;
+import flixel.FlxG;
 
 /**
  * ...
@@ -31,6 +32,7 @@ class MoneyBag extends Exploder
 		{
 			if (held)
 			{
+				FlxG.sound.play("assets/sounds/get.mp3", 0.3);
 				killswitch = true;
 				PlayState.instance.theDonul.holding = false;
 				blend = BlendMode.ADD;

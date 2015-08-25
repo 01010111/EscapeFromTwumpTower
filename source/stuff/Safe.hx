@@ -33,6 +33,7 @@ class Safe extends Exploder
 		{
 			var m = new MoneyBag(getMidpoint(), true);
 		}
+		PlayState.instance.safeGot++;
 		super.kill();
 	}
 	

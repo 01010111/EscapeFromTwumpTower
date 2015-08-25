@@ -29,6 +29,7 @@ class Heart extends FlxSprite
 		if (!gone && FlxG.overlap(this, PlayState.instance.theDonul))
 		{
 			gone = true;
+			FlxG.sound.play("assets/sounds/get.mp3", 0.3);
 			PlayState.instance.theDonul.health = ZMath.clamp(PlayState.instance.theDonul.health + 1, 0, 4);
 			FlxTween.tween(this, { y:y - 16, alpha:0 }, 0.2).onComplete = function(t:FlxTween):Void { reallyKill(); }
 			blend = BlendMode.ADD;

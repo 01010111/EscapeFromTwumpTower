@@ -55,4 +55,9 @@ class Controller extends FlxObject
 		return FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S || joypad != null && joypad.getYAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) > deadzone || joypad != null && joypad.pressed.DPAD_DOWN;
 	}
 	
+	public function up_pressed():Bool
+	{
+		return FlxG.keys.pressed.UP || FlxG.keys.pressed.W || joypad != null && joypad.getYAxis(FlxGamepadInputID.LEFT_ANALOG_STICK) < -deadzone || joypad != null && joypad.pressed.DPAD_DOWN;
+	}
+	
 }

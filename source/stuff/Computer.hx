@@ -16,6 +16,7 @@ class Computer extends Exploder
 		animation.frameIndex = ZMath.randomRangeInt(37, 39);
 		destructable = true;
 		setWeight(30);
+		PlayState.instance.stuff.add(this);
 	}
 	
 }

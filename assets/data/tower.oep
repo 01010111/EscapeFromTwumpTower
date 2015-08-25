@@ -16,7 +16,7 @@
     <Width>320</Width>
     <Height>8000</Height>
   </LevelMaximumSize>
-  <Filename>D:\Projects\Games\EscapeFromTwumpTower\assets\data\tower.oep</Filename>
+  <Filename>X:\Projects\Games\EscapeFromTwumpTower\assets\data\tower.oep</Filename>
   <AngleMode>Radians</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>
@@ -165,7 +165,7 @@
         <RectColor A="255" R="255" G="0" B="0" />
       </ImageDefinition>
       <ValueDefinitions />
-      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+      <NodesDefinition Enabled="true" Limit="-1" DrawMode="None" Ghost="true" />
     </EntityDefinition>
     <EntityDefinition Name="trumper" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
       <Size>

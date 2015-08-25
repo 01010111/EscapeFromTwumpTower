@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxSpriteUtil;
 import util.Transition;
 import util.TState;
@@ -46,6 +47,8 @@ class Twump extends Exploder
 		dolly = new FlxObject(x, y, 1, 1);
 		PlayState.instance.add(dolly);
 		health = 3;
+		drag.set(100, 100);
+		maxVelocity.y = jumpForce;
 	}
 	
 	var dollyTarget = 0.0;
@@ -86,7 +89,7 @@ class Twump extends Exploder
 	}
 	
 	var hurtTimer = -1;
-	var speed = 80;
+	var speed = 90;
 	var jumpForce = 240;
 	public var holding = false;
 	var strength = 1;
@@ -112,6 +115,16 @@ class Twump extends Exploder
 				}
 				else animation.play(h + "run");
 				if (TState.c.a_just_pressed()) jump();
+				
+				if (!TState.c.down_pressed())
+				{
+					if (TState.c.b_just_pressed())
+					{
+						if (TState.c.up_pressed()) checkSwap(FlxObject.UP);
+						if (TState.c.HAxis() < 0) checkSwap(FlxObject.LEFT);
+						if (TState.c.HAxis() > 0) checkSwap(FlxObject.RIGHT);
+					}
+				}
 			}
 			else animation.play(h + "jump");
 			
@@ -136,9 +149,32 @@ class Twump extends Exploder
 		else animation.play("hurt");
 	}
 	
+	function checkSwap(d:Int):Void
+	{
+		switch(d)
+		{
+			case FlxObject.UP:
+				pullBox.setPosition(getMidpoint().x - pullBox.width * 0.5, y - 8);
+				FlxG.overlap(pullBox, PlayState.instance.stuff, swapperoo);
+			case FlxObject.LEFT:
+				pullBox.setPosition(x - 8, y + height - 8);
+				FlxG.overlap(pullBox, PlayState.instance.stuff, swapperoo);
+			case FlxObject.RIGHT:
+				pullBox.setPosition(x + width + 8, y + height - 8);
+				FlxG.overlap(pullBox, PlayState.instance.stuff, swapperoo);
+		}
+	}
+	
+	function swapperoo(p:FlxObject, s:Exploder):Void
+	{
+		FlxTween.tween(s, { x:x, y:y }, 0.2);
+		FlxTween.tween(this, { x:s.x, y:s.y }, 0.2);
+	}
+	
 	function jump():Void
 	{
 		velocity.y = -jumpForce;
+		FlxG.sound.play("assets/sounds/jump.mp3", 0.25);
 	}
 	
 	function checkPulling():Void
@@ -159,6 +195,7 @@ class Twump extends Exploder
 		
 		if (t.weight <= 0) 
 		{
+			FlxG.sound.play("assets/sounds/toss.mp3", 0.4);
 			holding = true;
 			t.held = true;
 		}
@@ -168,6 +205,7 @@ class Twump extends Exploder
 	function throwThing():Void
 	{
 		holding = false;
+		FlxG.sound.play("assets/sounds/tosstoss.mp3", 0.4);
 		for (thing in PlayState.instance.stuff)
 		{
 			if (thing.held)
@@ -196,7 +234,8 @@ class Twump extends Exploder
 			hurtTimer = 60;
 		}
 		jump();
-		velocity.x = facing == FlxObject.LEFT ? -100 : 100;
+		velocity.x = facing == FlxObject.LEFT ? 100 : -100;
+		FlxG.sound.play("assets/sounds/hit.mp3", 0.5);
 	}
 	
 	override public function kill():Void 

@@ -9,6 +9,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
+import flixel.system.FlxSound;
 import flixel.tile.FlxTilemap;
 import flixel.tweens.FlxEase.EaseFunction;
 import stuff.ArmyMan;
@@ -16,6 +17,7 @@ import stuff.Block;
 import stuff.Box;
 import stuff.Bullet;
 import stuff.Coin;
+import stuff.Computer;
 import stuff.Copter;
 import stuff.MissileMoe;
 import stuff.MoneyBag;
@@ -47,13 +49,19 @@ class PlayState extends TState
 	var moneyText:TwumpText;
 	
 	var timerText:TwumpText;
-	var timerMSec:Int = 0;
-	var timerSec:Int = 0;
-	var timerMin:Int = 0;
+	public var timerMSec:Int = 0;
+	public var timerSec:Int = 0;
+	public var timerMin:Int = 0;
+	
+	public var safeGot:Int = 0;
 	
 	override public function create():Void 
 	{
 		super.create();
+		
+		FlxG.sound.music = new FlxSound();
+		FlxG.sound.music.loadEmbedded("assets/music/3333.mp3", true);
+		FlxG.sound.music.play();
 		
 		instance = this;
 		
@@ -64,7 +72,7 @@ class PlayState extends TState
 		bullets = new FlxGroup();
 		
 		map = new FlxOgmoLoader("assets/data/tower.oel");
-		level = map.loadTilemap("assets/images/tiles.png", 16, 16, "map");
+		level = map.loadTilemap("assets/images/tiles5.png", 16, 16, "map");
 		var tP:Array<Int> = [
 			0x0000, 0x1111, 0x1111, 0x1111, 0x1111, 0x0000, 0x1111, 0x1111, 
 			0x0000, 0x0100, 0x0100, 0x0100, 0x1111, 0x0000, 0x1111, 0x1111, 
@@ -73,7 +81,7 @@ class PlayState extends TState
 			0x1111, 0x1111, 0x1111, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
 			0x0100, 0x0100, 0x0100, 0x0000, 0x0000, 0x0100, 0x0000, 0x1111, 
 			0x0000, 0x0000, 0x1111, 0x0000, 0x0000, 0x1111, 0x1111, 0x1111, 
-			0x1111, 0x1111, 0x1111, 0x0000, 0x0000, 0x1111, 0x1111, 0x0000, 
+			0x1111, 0x1111, 0x1111, 0x0000, 0x0000, 0x0000, 0x1111, 0x0000, 
 		];
 		for (i in 0...tP.length) level.setTileProperties(i, tP[i]);
 		add(level);
@@ -136,7 +144,8 @@ class PlayState extends TState
 		}
 		else if (entityName == "moe")
 		{
-			var m = new MissileMoe(p);
+			var e:Xml = entityData.firstElement();
+			var m = new MissileMoe(p, FlxPoint.get(Std.parseInt(e.get("x")), Std.parseInt(e.get("y"))));
 		}
 		else if (entityName == "trumper")
 		{
@@ -149,6 +158,10 @@ class PlayState extends TState
 		else if (entityName == "armyman")
 		{
 			var a = new ArmyMan(p);
+		}
+		else if (entityName == "cpu")
+		{
+			var c = new Computer(p);
 		}
 	}
 	
@@ -219,7 +232,11 @@ class PlayState extends TState
 	
 	function getCoin(d:Twump, c:FlxObject):Void
 	{
-		if (c.alive) money += 10;
+		if (c.alive) 
+		{
+			FlxG.sound.play("assets/sounds/get.mp3", 0.3);
+			money += 10;
+		}
 		c.kill();
 	}
 	

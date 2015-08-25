@@ -64,6 +64,7 @@ class Exploder extends FlxSprite
 				if (!trump) allowCollisions = FlxObject.ANY;
 				if (useGravity) acceleration.y = 800;
 			}
+			
 			super.update(elapsed);
 		}
 	}
@@ -82,6 +83,7 @@ class Exploder extends FlxSprite
 		{
 			var s = height > width ? height : width;
 			var e = new Explosion(getMidpoint(), s / 16 + Math.random() + 1);
+			FlxG.sound.play("assets/sounds/explode.mp3", 0.5);
 		}
 		super.kill();
 	}
